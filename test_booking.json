@@ -1,0 +1,13 @@
+{
+    "plannerId": 7,
+    "venueId": 7,
+    "plannerName": "nirbun",
+    "userEmail": "test@test.com",
+    "date": "2026-02-14",
+    "guestCount": 500,
+    "requirements": {
+        "place": "Kollam"
+    },
+    "totalPrice": 100000,
+    "status": "pending"
+}
