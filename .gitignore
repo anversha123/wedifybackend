@@ -2,7 +2,13 @@
 .env.*
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
 venv/
+.venv/
 .vscode/
 .idea/
 .DS_Store
+staticfiles/
+db.sqlite3
+*.log
