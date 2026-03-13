@@ -64,6 +64,9 @@ MIDDLEWARE = [
 
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOWED_ORIGINS = [
+    "https://wedify-full.vercel.app",
+]
 
 ROOT_URLCONF = 'wedify_project.urls'
 
