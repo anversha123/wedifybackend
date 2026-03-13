@@ -23,6 +23,13 @@ DEBUG = os.getenv('DEBUG', 'True') == 'True'
 _allowed = os.getenv('ALLOWED_HOSTS', '*')
 ALLOWED_HOSTS = [h.strip() for h in _allowed.split(',') if h.strip()]
 
+# Vercel sets VERCEL_URL automatically
+VERCEL_URL = os.getenv('VERCEL_URL')
+if VERCEL_URL and VERCEL_URL not in ALLOWED_HOSTS:
+    ALLOWED_HOSTS.append(VERCEL_URL)
+if 'VERCEL' in os.environ and '.vercel.app' not in ALLOWED_HOSTS:
+    ALLOWED_HOSTS.append('.vercel.app')
+
 # Render sets RENDER_EXTERNAL_HOSTNAME automatically
 RENDER_EXTERNAL_HOSTNAME = os.getenv('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME and RENDER_EXTERNAL_HOSTNAME not in ALLOWED_HOSTS:
@@ -133,7 +140,8 @@ STORAGES = {
         "BACKEND": "django.core.files.storage.FileSystemStorage",
     },
     "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        # Fallback to standard app static storage if Vercel doesn't build the static manifest, to avoid crashes
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage" if os.environ.get('VERCEL') else "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }
 
