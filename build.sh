@@ -2,8 +2,11 @@
 # exit on error
 set -o errexit
 
-pip install -r backend/requirements.txt
+# Change directory to backend if it exists (for root-level execution)
+if [ -d "backend" ]; then
+    cd backend
+fi
 
-cd backend
+pip install -r requirements.txt
 python manage.py collectstatic --no-input
 python manage.py migrate
